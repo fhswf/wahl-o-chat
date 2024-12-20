@@ -1,0 +1,8 @@
+*.pdg filter=lfs diff=lfs merge=lfs -text
+BSW_Parteiprogramm.pdf filter=lfs diff=lfs merge=lfs -text
+CDU_BTW2025.pdf filter=lfs diff=lfs merge=lfs -text
+DIE_LINKE_Wahlprogramm_zur_Bundestagswahl_2021.pdf filter=lfs diff=lfs merge=lfs -text
+fdp-wahlprogramm_2025.pdf filter=lfs diff=lfs merge=lfs -text
+Grüne_BTW2025.pdf filter=lfs diff=lfs merge=lfs -text
+Programm_AfD_Online_.pdf filter=lfs diff=lfs merge=lfs -text
+SPD-Zukunftsprogramm.pdf filter=lfs diff=lfs merge=lfs -text
