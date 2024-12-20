@@ -1,0 +1,8 @@
+langchain 
+langchain-community 
+langchain_chroma 
+langchain_openai 
+langchain_unstructured  
+unstructured[pdf] 
+chromadb
+streamlit
