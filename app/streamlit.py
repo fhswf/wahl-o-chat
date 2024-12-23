@@ -1,4 +1,4 @@
-import streamlit as st
+import app.streamlit as st
 import urllib.parse
 
 import chromadb
