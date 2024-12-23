@@ -1,0 +1,22 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: wahl-o-chat
+  annotations:
+    traefik.frontend.passHostHeader: 'true'
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls.certresolver: myresolver
+spec:
+  rules:
+  - host: wahl-o-chat.gawron.cloud
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: wahl-o-chat-service
+            port:
+              number: 8501

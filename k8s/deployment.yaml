@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wahl-o-chat-deployment
+  namespace: wahl-o-chat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wahl-o-chat
+  template:
+    metadata:
+      labels:
+        app: wahl-o-chat
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: wahl-o-chat
+        image: ghcr.io/fhswf/wahl-o-chat:latest
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openai-secret
+              key: OPENAI_API_KEY     
+        ports:
+        - containerPort: 8501
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wahl-o-chat-service
+  namespace: wahl-o-chat
+spec:
+  selector:
+    app: wahl-o-chat
+  ports:
+    - protocol: TCP
+      port: 8501
+      targetPort: 8501
+  type: ClusterIP
