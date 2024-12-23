@@ -28,7 +28,9 @@ spec:
         - name: STREAMLIT_BROWSER_GATHER_USAGE_STATS
           value: "false"   
         - name: STREAMLIT_CLIENT_SHOW_ERROR_DETAILS
-          value: "true"  
+          value: "true"
+        - name: STREAMLIT_SERVER_FILE_WATCHER_TYPE
+          value: "none"
         ports:
         - containerPort: 8501
 ---
