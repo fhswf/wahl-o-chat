@@ -20,6 +20,4 @@ COPY . /app
 # Make Port 8501 available to the world outside this container
 EXPOSE 8501
 
-WORKDIR /app/app
-
 CMD ["streamlit", "run", "streamlit.py"]
