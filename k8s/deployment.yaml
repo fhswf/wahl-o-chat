@@ -26,7 +26,9 @@ spec:
         - name: STREAMLIT_SERVER_ENABLE_STATIC_SERVING
           value: "true"
         - name: STREAMLIT_BROWSER_GATHER_USAGE_STATS
-          value: "false"     
+          value: "false"   
+        - name: STREAMLIT_CLIENT_SHOW_ERROR_DETAILS
+          value: "true"  
         ports:
         - containerPort: 8501
 ---
