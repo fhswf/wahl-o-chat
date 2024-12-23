@@ -22,7 +22,11 @@ spec:
           valueFrom:
             secretKeyRef:
               name: openai-secret
-              key: OPENAI_API_KEY     
+              key: OPENAI_API_KEY
+        - name: STREAMLIT_SERVER_ENABLE_STATIC_SERVING
+          value: "true"
+        - name: STREAMLIT_BROWSER_GATHER_USAGE_STATS
+          value: "false"     
         ports:
         - containerPort: 8501
 ---
