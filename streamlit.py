@@ -3,12 +3,18 @@ import urllib.parse
 
 import chromadb
 import os
+
 from collections import defaultdict
+from typing import List
 from tqdm import tqdm
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
+from langchain_core.callbacks.manager import CallbackManagerForRetrieverRun
 from langchain_core.documents import Document
 from langchain_core.prompts import PromptTemplate
+from langchain_core.retrievers import BaseRetriever
+from langchain_core.embeddings.embeddings import Embeddings
+from langchain_core.vectorstores import VectorStore
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.retrievers import MergerRetriever
@@ -16,10 +22,6 @@ from langchain.retrievers.contextual_compression import ContextualCompressionRet
 from langchain.prompts import ChatPromptTemplate
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from unstructured.partition.pdf import partition_pdf
-from unstructured.chunking.title import chunk_by_title
-from unstructured.chunking.basic import chunk_elements
-from unstructured.documents.elements import Image
 
 load_dotenv(find_dotenv())
 
@@ -85,6 +87,29 @@ class PrettyOutput:
         
         return return_str
 
+class PartyRetriever(BaseRetriever):
+
+    vectorstore: VectorStore
+    embeddings: Embeddings
+
+    def __init__(self, vectorstore: VectorStore, embeddings: Embeddings):
+        super().__init__(vectorstore=vectorstore, embeddings=embeddings)
+        self.embeddings = embeddings
+        self.vectorstore = vectorstore
+
+    def _get_relevant_documents(
+        self,
+        query: str,
+        *,
+        run_manager: CallbackManagerForRetrieverRun,
+    ) -> List[Document]:
+        results = []
+        query_embedding = self.embeddings.embed_query(query)
+        for party in docs.keys():
+            results += self.vectorstore.similarity_search_by_vector(query_embedding, k=3, filter={'party': party})
+
+        return results
+
 
 class Generator:
 
@@ -92,7 +117,6 @@ class Generator:
         self.vectorstore = Chroma(
             collection_name=f"BTW2025",
             client=getClient(),
-            embedding_function=OpenAIEmbeddings(model=EMBEDDING_MODEL, api_key=OPENAI_API_KEY),
             create_collection_if_not_exists=False
         )
 
@@ -130,27 +154,16 @@ class Generator:
                 ("human", "Frage: {input}")
             ])
 
-        self.retriever = self.getRetriever()
+        self.embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL, api_key=OPENAI_API_KEY)
+        self.retriever = PartyRetriever(self.vectorstore, self.embeddings)
         self.chain = self.getChain()
         self.context = []
-
-
-    def getRetriever(self):
-        PARTY_RETRIEVERS = [ 
-            self.vectorstore.as_retriever(
-                search_type='similarity',
-                search_kwargs={
-                    'k': 3,
-                    'filter': {'party': party}
-                }
-            ) for party in docs.keys() ]
-
-        return MergerRetriever(retrievers=PARTY_RETRIEVERS)
+    
 
 
     def getChain(self):
         return create_retrieval_chain(
-            retriever=self.getRetriever(),
+            retriever=self.retriever,
             combine_docs_chain=create_stuff_documents_chain(
                 llm=self.llm,
                 prompt=self.prompt,
@@ -174,7 +187,8 @@ def getGenerator():
 
 if "messages_history" not in st.session_state:
     st.session_state.messages_history = [
-        {"role": "ai", "content": "Guten Tag! Ich habe die Wahlprogramme der Parteien zur Bundestagswahl 2025 gelesen und beantworte gerne Deine Fragen dazu! Womit darf ich Dir behilflich sein??"}
+        {"role": "ai", "content": """Guten Tag! Ich habe die Wahlprogramme der Parteien zur Bundestagswahl 2025 gelesen und beantworte gerne Deine Fragen dazu! 
+                                     Womit darf ich Dir behilflich sein?"""}
     ]
 
 
