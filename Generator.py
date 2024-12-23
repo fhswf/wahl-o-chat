@@ -1,8 +1,10 @@
 from PartyRetriever import PartyRetriever
 from PrettyOutput import PrettyOutput
-from langchain.chains import create_retrieval_chain, create_stuff_documents_chain
-from langchain.retrievers import ChatPromptTemplate
-from langchain.retrievers import PromptTemplate
+from langchain.chains.combine_documents.stuff import create_stuff_documents_chain
+from langchain.chains.retrieval import create_retrieval_chain
+from langchain_core.prompts.chat import ChatPromptTemplate
+from langchain_core.prompts.prompt import PromptTemplate
+from langchain_core.runnables.config import RunnableConfig
 
 class Generator:
     """
@@ -58,9 +60,9 @@ class Generator:
             )
         )
 
-    def invoke(self, query: str):
 
-        res = self.chain.invoke({"input": query})
+    def invoke(self, input: dict, config: RunnableConfig):
+        res = self.chain.invoke(input, config)
         self.context = res["context"]
         full_answer = PrettyOutput.pretty_output_with_context(res["answer"], res["context"])
 

@@ -12,7 +12,9 @@ from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 from langchain.retrievers import MergerRetriever
 from langchain.retrievers.contextual_compression import ContextualCompressionRetriever
+from langchain_chroma.vectorstores import Chroma
 
+from Callback import StreamlitCallbackHandler
 
 from Generator import Generator
 
@@ -34,14 +36,14 @@ ICON_RESTART_ALT = ":material/restart_alt:"
 # Holding Ressources
 
 
-@st.cache_data
+@st.cache_resource
 def getClient():
     return chromadb.PersistentClient(
         path=os.path.join(DATABASE_PATH, f"{EMBEDDING_MODEL}"),
     )
 
 
-@st.cache_data
+@st.cache_resource
 def getChroma():
     return Chroma(
         collection_name=f"BTW2025",
@@ -50,7 +52,7 @@ def getChroma():
     )
 
 
-@st.cache_data
+@st.cache_resource
 def getLLM():
     return ChatOpenAI(
         api_key=OPENAI_API_KEY,
@@ -59,12 +61,12 @@ def getLLM():
     )
 
 
-@st.cache_data
+@st.cache_resource
 def getEmbedding():
     return OpenAIEmbeddings(model=EMBEDDING_MODEL, api_key=OPENAI_API_KEY)
 
 
-@st.cache_data
+@st.cache_resource
 def getGenerator():
     return Generator(getChroma(), getEmbedding(), getLLM())
 
@@ -107,12 +109,12 @@ with tab_chatbot:
             st.chat_message("user").write(query)
 
             generator = getGenerator()
-            response_generator = generator.invoke(query)
-            response_str = st.chat_message(
-                "ai").write_stream(response_generator)
-
-            st.session_state.messages_history.append(
-                {"role": "ai", "content": response_str})
+            with st.chat_message("ai"):
+                st_callback = StreamlitCallbackHandler(st.container())
+                response_generator = generator.invoke({"input": query}, {"callbacks": [st_callback]})
+                response_str = st.write(response_generator)
+                st.session_state.messages_history.append(
+                    {"role": "ai", "content": response_str})
         except Exception as e:
             st.error(
                 f"An Error Occured: {e}. Clear cache and try again.", icon=ICON_ERROR)

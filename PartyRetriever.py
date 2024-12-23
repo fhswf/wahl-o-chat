@@ -1,8 +1,11 @@
 from typing import List
-from langchain.retrievers import BaseRetriever, CallbackManagerForRetrieverRun
-from langchain.vectorstore import VectorStore
-from langchain.embeddings import Embeddings
-from langchain.document import Document
+from collections.abc import Mapping
+
+from langchain_core.retrievers import BaseRetriever
+from langchain_core.callbacks.manager import CallbackManagerForRetrieverRun
+from langchain_core.vectorstores.base import VectorStore
+from langchain_core.embeddings.embeddings import Embeddings
+from langchain_core.documents.base import Document
 
 
 
@@ -12,7 +15,7 @@ class PartyRetriever(BaseRetriever):
     """
     A retriever that retrieves documents from the party programs"""
     
-    docs = {
+    docs: Mapping[str, str] = {
         "BSW": "BSW_Parteiprogramm.pdf",
         "Grüne": "Grüne_BTW2025.pdf",
         "CDU": "CDU_BTW2025.pdf",
