@@ -19,4 +19,4 @@ spec:
           service:
             name: wahl-o-chat-service
             port:
-              number: 8501
+              number: 7860

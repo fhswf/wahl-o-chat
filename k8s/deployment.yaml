@@ -36,6 +36,6 @@ spec:
     app: wahl-o-chat
   ports:
     - protocol: TCP
-      port: 8501
-      targetPort: 8501
+      port: 7860
+      targetPort: 7860
   type: ClusterIP
