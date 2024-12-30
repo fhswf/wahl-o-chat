@@ -17,23 +17,14 @@ spec:
       containers:
       - name: wahl-o-chat
         image: ghcr.io/fhswf/wahl-o-chat:0.1.5
-        command: ["streamlit", "run", "--logger.level", "debug", "streamlit.py"]
         env:
         - name: OPENAI_API_KEY
           valueFrom:
             secretKeyRef:
               name: openai-secret
               key: OPENAI_API_KEY
-        - name: STREAMLIT_SERVER_ENABLE_STATIC_SERVING
-          value: "true"
-        - name: STREAMLIT_BROWSER_GATHER_USAGE_STATS
-          value: "false"   
-        - name: STREAMLIT_CLIENT_SHOW_ERROR_DETAILS
-          value: "true"
-        - name: STREAMLIT_SERVER_FILE_WATCHER_TYPE
-          value: "none"
         ports:
-        - containerPort: 8501
+        - containerPort: 7860
 ---
 apiVersion: v1
 kind: Service
