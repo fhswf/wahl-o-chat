@@ -16,7 +16,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: wahl-o-chat
-        image: ghcr.io/fhswf/wahl-o-chat:0.1.4
+        image: ghcr.io/fhswf/wahl-o-chat:0.1.5
         command: ["streamlit", "run", "--logger.level", "debug", "streamlit.py"]
         env:
         - name: OPENAI_API_KEY
