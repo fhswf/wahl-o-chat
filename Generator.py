@@ -64,7 +64,4 @@ class Generator:
     def invoke(self, input: dict, config: RunnableConfig):
         res = self.chain.invoke(input, config)
         self.context = res["context"]
-        full_answer = PrettyOutput.pretty_output_with_context(res["answer"], res["context"])
-
-        for i in range(len(full_answer)):
-            yield full_answer[i:i+1]
+        return res
