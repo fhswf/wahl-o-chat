@@ -7,17 +7,13 @@ WORKDIR /app
 COPY ./requirements.txt /app
 
 # Install any needed packages specified in requirements.txt
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install\
-    libgl1\
-    libgl1-mesa-glx \ 
-    libglib2.0-0 -y && \
-    rm -rf /var/lib/apt/lists/*
 RUN pip install torch --index-url https://download.pytorch.org/whl/cpu && \
     pip install --no-cache-dir -r requirements.txt && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY . /app
 
-# Make Port 8501 available to the world outside this container
-EXPOSE 8501
+# Make Port 7860 available to the world outside this container
+EXPOSE 7860
+ENV GRADIO_SERVER_NAME="0.0.0.0"
 
-CMD ["streamlit", "run", "streamlit.py"]
+CMD ["python", "gr_app.py"]
