@@ -5,4 +5,4 @@ langchain_openai
 langchain_unstructured  
 unstructured[pdf] 
 chromadb
-streamlit
+gradio
