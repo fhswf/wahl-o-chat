@@ -1,12 +1,15 @@
 import gradio as gr
 import urllib.parse
 
+import asyncio
 import chromadb
 import os
 import time
 
+from functools import reduce
 from collections import defaultdict
-from tqdm import tqdm
+from collections.abc import Awaitable
+from aiostream import stream
 from pathlib import Path
 from dotenv import load_dotenv, find_dotenv
 from langchain.retrievers import MergerRetriever
@@ -14,7 +17,7 @@ from langchain.retrievers.contextual_compression import ContextualCompressionRet
 from langchain_chroma.vectorstores import Chroma
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
-from Callback import StreamlitCallbackHandler
+from Callback import GradioCallbackHandler
 
 from Generator import Generator
 
@@ -31,10 +34,6 @@ ICON_ERROR = ":material/error:"
 ICON_WARNING = ":material/warning:"
 ICON_INFO = ":material/info:"
 ICON_RESTART_ALT = ":material/restart_alt:"
-
-#################################################################################################################################
-# Holding Ressources
-
 
 client = chromadb.PersistentClient(
     path=os.path.join(DATABASE_PATH, f"{EMBEDDING_MODEL}"))
@@ -55,15 +54,72 @@ embedding = OpenAIEmbeddings(model=EMBEDDING_MODEL, api_key=OPENAI_API_KEY)
 
 generator = Generator(chroma, embedding, llm)
 
+examples = [
+    "Was sagen die Parteien zum Thema KI?",
+    "Wie sind die Positionen der Parteien in der Hochschulpolitik?",
+    "Wie wollen die Parteien Investitionen fördern?"
+]
+
+def user(user_message, history: list):
+    return "", history + [{"role": "user", "content": user_message}], ""
+
+def formatParty(record):
+    (party, docs) = record
+    text = f"### {party}\n\n"
+    for d in docs:
+        text += f"<pre>{d.page_content}</pre>\n"
+    return text
+
+def formatContext(context):
+    header = """## Quellen\n\n"""
+
+    by_party = defaultdict(list)
+    for d in context:
+        by_party[d.metadata['party']].append(d)
+
+    return header + "\n\n".join(map(formatParty, by_party.items()))
 
 
+async def chat(message, history, progress=gr.Progress()):
+    history.append(gr.ChatMessage(role="user", content=message))
+    print("history: ", history)
+    yield history, ""
+    cb = GradioCallbackHandler(progress)
+    call = generator.ainvoke({"input": message}, {"callbacks": [cb]})
 
+    tasks = []
+    async for x in call:
+        task = asyncio.create_task(x)
+        task.add_done_callback(cb.end_run)
+        tasks.append(task)
+        print(f"{x} - processing submitted")
 
-def chat(message, history):
-    response = generator.invoke({"input": message}, {"callbacks": []})
-    yield response['answer']
+    print("task: ", type(task), tasks)
+    print("callback: ", type(cb), isinstance(cb, Awaitable))
 
-demo = gr.ChatInterface(chat, type="messages")
+    
+    async for x in cb:
+        r = x
+        print("got: ", type(r), str(r)[:80])
+        if isinstance(r, str):
+            #history.append(gr.ChatMessage(role="assistant", metadata={"title": "thinking ..."}, content=r))
+            yield history, ""
+
+        elif "answer" in r:
+            history.append(gr.ChatMessage(role="assistant", content=r["answer"]))
+            yield history, ""
+
+    result = await asyncio.gather(*tasks)
+    for r in result:
+        history.append(gr.ChatMessage(role="assistant", content=r["answer"]))
+        yield history, formatContext(r["context"])
+
+with gr.Blocks(fill_height=True) as demo:
+    chatbot = gr.Chatbot(type="messages")
+    references = gr.Markdown()
+    message = gr.Textbox(submit_btn=True, show_label=False)
+
+    message.submit(chat, [message, chatbot], [chatbot, references])
 
 if __name__ == "__main__":
     demo.launch()
