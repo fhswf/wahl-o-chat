@@ -6,3 +6,4 @@ langchain_unstructured
 unstructured[pdf] 
 chromadb
 gradio
+aiostream
