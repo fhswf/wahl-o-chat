@@ -24,7 +24,8 @@ class GradioCallbackHandler(BaseCallbackHandler):
         self.done = False
         self.progress = progress
         self.count = 0
-        self.progress(self.count, "Verarbeite Frage")
+        self.message = "Verarbeite Frage"
+        self.progress((self.count, 4), self.message)
 
     def __aiter__(self):
         return self
@@ -32,8 +33,9 @@ class GradioCallbackHandler(BaseCallbackHandler):
     async def __anext__(self):
         if self.done:
             raise StopAsyncIteration
-        self.count += 1
-        self.progress(self.count, "... verarbeite Informationen", total=100)
+        #self.count += 1
+        print("progress: ", self.count, self.message)
+        self.progress((self.count, 4), self.message)
         return await self.queue.get()
         
     def end_run(self, future):
@@ -86,18 +88,24 @@ class GradioCallbackHandler(BaseCallbackHandler):
         self, serialized: Dict[str, Any], inputs: Dict[str, Any], **kwargs: Any
     ) -> None:
         print("chain starting: ", str(serialized)[:100], str(inputs)[:100], kwargs)
-
-        self.queue.put_nowait(f"chain start: {inputs}")
+        print("chain metadata: ", kwargs["metadata"])
+        if "metadata" in kwargs and "message" in kwargs['metadata'] and kwargs["metadata"]["message"] != self.message:
+            self.message = kwargs["metadata"]["message"] 
+            self.queue.put_nowait(f"chain start: {inputs}")
+            self.count += 1
 
     def on_retriever_start(self, serialized: dict[str, Any], query: str, *, run_id: UUID, parent_run_id: UUID | None = None, tags: list[str] | None = None, metadata: dict[str, Any] | None = None, **kwargs: Any) -> None:
-        print("on_retriever_start: ", query, run_id, parent_run_id, tags, metadata)
+        #print("on_retriever_start: ", query, run_id, parent_run_id, tags, metadata)
+        pass
 
     def on_retriever_end(self, documents: Sequence[Document], *, run_id: UUID, parent_run_id: UUID | None = None, tags: list[str] | None = None, **kwargs: Any) -> None:
-        print("on_retriever_end: ", documents, run_id, parent_run_id, tags)
+        pass
+        # print("on_retriever_end: ", documents, run_id, parent_run_id, tags)
 
     def on_chain_end(self, outputs: Dict[str, Any], **kwargs: Any) -> None:
         print("chain end: ", str(outputs)[:100], kwargs)
-        self.queue.put_nowait(f"chain end: {outputs}")
+        self.queue.put_nowait(f"chain end: {outputs.keys()}")
+
 
     def on_chain_error(self, error: BaseException, **kwargs: Any) -> None:
         print("chain error: ", error)

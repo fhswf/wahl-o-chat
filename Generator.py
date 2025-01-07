@@ -21,7 +21,7 @@ class ResponseFormatter(BaseModel):
 
 class ContextCleanup(Runnable[Dict[str, Any], Dict[str, Any]]):
     def invoke(self, inputs, config, **kwargs):
-        ranking = { x.id: x.score for x in inputs['ranking']}
+        ranking = {x.id: x.score for x in inputs['ranking']}
         old_context = inputs['context']
         context = []
         print("context cleanup", ranking)
@@ -96,12 +96,12 @@ class Generator:
         self.retriever = PartyRetriever(self.vectorstore, self.embeddings)
         self.rerank_chain = create_stuff_documents_chain(
             llm=self.llm.bind_tools([ResponseFormatter]),
-            #llm=self.llm,
+            # llm=self.llm,
             output_parser=PydanticToolsParser(tools=[ResponseFormatter]),
             prompt=self.rankingPrompt,
             document_prompt=PromptTemplate.from_template(
                 "Aussage der Partei {party} mit ID {element_id}: {page_content}")
-        ) 
+        )
         self.combine_chain = create_stuff_documents_chain(
             llm=self.llm,
             prompt=self.prompt,
@@ -112,13 +112,18 @@ class Generator:
         retrieval_docs = (lambda x: x["input"]) | self.retriever
 
         self.chain = (
-            RunnablePassthrough.assign(
-                context=retrieval_docs.with_config(run_name="retrieve_documents"),
-            ).assign(ranking=self.rerank_chain).assign(context=ContextCleanup()).assign(answer=self.combine_chain)
+            RunnablePassthrough
+            .assign(
+                context=retrieval_docs.with_config(run_name="retrieve_documents", metadata={
+                                                   "message": "Suche Informationen ..."}),
+            )
+            .assign(
+                ranking=self.rerank_chain.with_config(metadata={"message": "Bewerte Informationen ..."}))
+            .assign(context=ContextCleanup())
+            .assign(answer=self.combine_chain.with_config(metadata={"message": "Erstelle Übersicht ..."}))
         ).with_config(run_name="retrieval_chain")
 
         self.context = []
-
 
     def invoke(self, input: dict, config: RunnableConfig):
         res = self.chain.invoke(input, config, verbose=True)

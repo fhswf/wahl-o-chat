@@ -1,4 +1,6 @@
 import gradio as gr
+from gradio.data_classes import _StaticFiles
+from gradio.components import State
 import urllib.parse
 
 import asyncio
@@ -60,15 +62,24 @@ examples = [
     "Wie wollen die Parteien Investitionen fördern?"
 ]
 
+
+
 def user(user_message, history: list):
     return "", history + [{"role": "user", "content": user_message}], ""
+
+def formatLink(doc):
+    return f"""
+- <a href="gradio_api/file/files/{doc.metadata['filename']}#page={doc.metadata['page_number']}" target="_blank">{"".join(doc.metadata['filename'].split('.')[:-1])}, Seite {doc.metadata['page_number']}</a>"""
 
 def formatParty(record):
     (party, docs) = record
     text = f"### {party}\n\n"
     for d in docs:
-        text += f"<pre>{d.page_content}</pre>\n"
+        text += formatLink(d)
     return text
+
+#category element_id file_directory filename filetype languages last_modified orig_elements page_number party source
+# [SPD Zukunftsprogramm](gradio_api/file/files/SPD-Zukunftsprogramm.pdf)
 
 def formatContext(context):
     header = """## Quellen\n\n"""
@@ -114,12 +125,19 @@ async def chat(message, history, progress=gr.Progress()):
         history.append(gr.ChatMessage(role="assistant", content=r["answer"]))
         yield history, formatContext(r["context"])
 
+gr.set_static_paths(paths=["files/"])
+    
+
 with gr.Blocks(fill_height=True) as demo:
-    chatbot = gr.Chatbot(type="messages")
-    references = gr.Markdown()
+    with gr.Tab("Chat"):
+        chatbot = gr.Chatbot(type="messages", max_height="100%")
+    with gr.Tab("Quellen"):
+        references = gr.Markdown(""" """)
     message = gr.Textbox(submit_btn=True, show_label=False)
+    saved_message = gr.State()
+    
+    message.submit(lambda x: [ "", x ], message, [message, saved_message]).then(chat, [saved_message, chatbot], [chatbot, references])
 
-    message.submit(chat, [message, chatbot], [chatbot, references])
-
+print(_StaticFiles.all_paths)
 if __name__ == "__main__":
     demo.launch()
