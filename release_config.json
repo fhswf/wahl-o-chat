@@ -10,8 +10,7 @@
         },
         "build_command_env": [],
         "version_variables": [
-            "gr_app.py:__version__",
-            "k8s/deployment.yaml:spec.template.spec.containers[0].image"
+            "gr_app.py:__version__"
         ],
         "changelog": {
             "default_templates": {
