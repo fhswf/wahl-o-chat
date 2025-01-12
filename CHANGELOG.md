@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.3.7 (2025-01-12)
+
+### Bug Fixes
+
+- Release config
+  ([`99e0987`](https://github.com/fhswf/wahl-o-chat/commit/99e09878b381f850c9c68b50335dcb3aa1316266))
+
+
 ## v0.3.6 (2025-01-12)
 
 ### Bug Fixes
@@ -60,7 +68,7 @@
   ([`4f15496`](https://github.com/fhswf/wahl-o-chat/commit/4f154967d532f990384bc300625809c503336a90))
 
 
-## v0.1.0 (2025-01-12)
+## v0.2.3 (2025-01-12)
 
 ### Bug Fixes
 
