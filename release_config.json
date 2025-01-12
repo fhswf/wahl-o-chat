@@ -78,7 +78,6 @@
         "logging_use_named_masks": false,
         "major_on_zero": true,
         "allow_zero_version": true,
-        "repo_dir": "/home/cgawron/git/wahl-o-chat",
         "remote": {
             "name": "origin",
             "type": "github",
