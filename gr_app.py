@@ -25,6 +25,8 @@ from Generator import Generator
 
 load_dotenv(find_dotenv())
 
+__version__ = "0.1.0"
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 DATABASE_PATH = "./chroma/"
 EMBEDDING_MODEL = "text-embedding-ada-002"
