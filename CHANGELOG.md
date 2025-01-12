@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.3.4 (2025-01-12)
+
+### Bug Fixes
+
+* fix: add workflow permissions ([`1cc4265`](https://github.com/fhswf/wahl-o-chat/commit/1cc4265be216efbdb61e0d03d2b3bd4f52045d51))
+
+### Unknown
+
+* Merge pull request #7 from fhswf/semantic_release
+
+fix: add workflow permissions ([`5b2794b`](https://github.com/fhswf/wahl-o-chat/commit/5b2794b94b9428d12403b38582e82bbe55de2797))
+
+
 ## v0.3.3 (2025-01-12)
 
 ### Bug Fixes
