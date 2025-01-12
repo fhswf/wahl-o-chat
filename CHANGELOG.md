@@ -1,6 +1,19 @@
 # CHANGELOG
 
 
+## v0.3.1 (2025-01-12)
+
+### Bug Fixes
+
+* fix: add login to ghcr.io ([`eff3e4f`](https://github.com/fhswf/wahl-o-chat/commit/eff3e4f7087c750fb75c87a9d93c41f9cf37557f))
+
+### Unknown
+
+* Merge pull request #4 from fhswf/semantic_release
+
+fix: add login to ghcr.io ([`2f51a35`](https://github.com/fhswf/wahl-o-chat/commit/2f51a359faea34204f5303b4c7643f45dd0892aa))
+
+
 ## v0.3.0 (2025-01-12)
 
 ### Features
