@@ -1,6 +1,23 @@
 # CHANGELOG
 
 
+## v0.3.10 (2025-01-12)
+
+### Bug Fixes
+
+- Use fixed version of python-semantic-release
+  ([`6163586`](https://github.com/fhswf/wahl-o-chat/commit/6163586527cd66c026807a0be4115b36a170c871))
+
+- Use fixed version of python-semantic-release
+  ([`0a283b1`](https://github.com/fhswf/wahl-o-chat/commit/0a283b1e8885bb695b31aad5d2350ff161057548))
+
+- Use fixed version of python-semantic-release
+  ([`f52ec07`](https://github.com/fhswf/wahl-o-chat/commit/f52ec07c88eee2e32a6e2cb4f5b6892f33b72865))
+
+- Use fixed version of python-semantic-release
+  ([`d202877`](https://github.com/fhswf/wahl-o-chat/commit/d20287709b8ea651ac3bbb4177555c9fcc900d57))
+
+
 ## v0.3.9 (2025-01-12)
 
 ### Bug Fixes
