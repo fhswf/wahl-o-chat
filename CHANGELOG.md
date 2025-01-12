@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.3.9 (2025-01-12)
+
+### Bug Fixes
+
+- Use fixed version of python-semantic-release
+  ([`97086c9`](https://github.com/fhswf/wahl-o-chat/commit/97086c926da6e372d553b432a6bc00d6927c4d9b))
+
+
 ## v0.3.8 (2025-01-12)
 
 ### Bug Fixes
