@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.3.11 (2025-01-13)
+
+### Bug Fixes
+
+- Use lfs when checking out repository
+  ([`0dd895b`](https://github.com/fhswf/wahl-o-chat/commit/0dd895bd40481769630131aca976436515982d2d))
+
+
 ## v0.3.10 (2025-01-12)
 
 ### Bug Fixes
