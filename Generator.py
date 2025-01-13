@@ -64,6 +64,7 @@ class Generator:
             - BSW
             - Linke
 
+            Achte darauf, dass Du *keine* konkrete Wahlempfehlung für eine bestimmte Partei aussprichst, sondern nur Informationen zu den Positionen der Parteien gibst.
             Am Ende deiner Antwort weise bitte darauf hin, dass du ein ChatBot bist und die Antwort anhand der Quellen überprüft werden sollte.
 
             <kontext>
