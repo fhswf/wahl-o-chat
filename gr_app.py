@@ -25,7 +25,7 @@ from Generator import Generator
 
 load_dotenv(find_dotenv())
 
-__version__ = "0.3.12"
+__version__ = "0.4.0"
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 DATABASE_PATH = "./chroma/"

@@ -1,6 +1,31 @@
 # CHANGELOG
 
 
+## v0.4.0 (2025-01-13)
+
+### Bug Fixes
+
+- Make sure the chatbot does not advice voting for a party
+  ([`745c3b9`](https://github.com/fhswf/wahl-o-chat/commit/745c3b97a5016076172862f39919f86a3537a354))
+
+- the wahl-o-chat should only inform the user regarding party positions on a given topic, but should
+  not give advice to vote for a specific party.
+
+- Set minimum height
+  ([`919120c`](https://github.com/fhswf/wahl-o-chat/commit/919120c26fa963e9dcf1d52e8a152e214bcca695))
+
+- Update indexing notebook
+  ([`b8bc532`](https://github.com/fhswf/wahl-o-chat/commit/b8bc532e8368639fa242716b0462f89bdc1e5812))
+
+### Features
+
+- Add new party programs as of January 13, 2025
+  ([`1099b5f`](https://github.com/fhswf/wahl-o-chat/commit/1099b5f1c6ef72e348208cddd1aaa99b546d88a7))
+
+- Add updated vector store
+  ([`f0a07ed`](https://github.com/fhswf/wahl-o-chat/commit/f0a07ed746ac1deef0e4e868cbfceaa0b853a80c))
+
+
 ## v0.3.12 (2025-01-13)
 
 ### Bug Fixes
