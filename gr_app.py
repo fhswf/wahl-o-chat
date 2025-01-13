@@ -130,7 +130,7 @@ gr.set_static_paths(paths=["files/"])
 
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Chat"):
-        chatbot = gr.Chatbot(type="messages", max_height="100%")
+        chatbot = gr.Chatbot(type="messages", min_height=400, height=None)
     with gr.Tab("Quellen"):
         references = gr.Markdown(""" """)
     message = gr.Textbox(submit_btn=True, show_label=False)
