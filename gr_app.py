@@ -130,7 +130,7 @@ async def chat(message, history, progress=gr.Progress()):
 gr.set_static_paths(paths=["files/"])
     
 history = [ gr.ChatMessage(role="assistant", 
-                           content="""Guten Tag, ich habe die Wahlprogramme der Parteien zur Bundestagswahl am 23. Februar 2025 gelesen und beantworte gerne Deine Fragen dazu!
+                           content="""Guten Tag, ich habe die *Wahlprogramme der Parteien* zur **Bundestagswahl** am **23. Februar 2025** gelesen und beantworte gerne Deine Fragen dazu!
                                       Meinen Quellcode findest Du übrigens auf [GitHub](https://github.com/fhswf/wahl-o-chat).
                                    """)
           ]
