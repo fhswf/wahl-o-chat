@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.4.2 (2025-01-15)
+
+### Bug Fixes
+
+- **ui**: Add placeholder for text box
+  ([`799db4c`](https://github.com/fhswf/wahl-o-chat/commit/799db4c8fbdfb589a0cce07328a7d025c72fcd64))
+
+
 ## v0.4.1 (2025-01-15)
 
 ### Bug Fixes
