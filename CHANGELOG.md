@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.4.1 (2025-01-15)
+
+### Bug Fixes
+
+- **ui**: Add welcome message
+  ([`e330ca4`](https://github.com/fhswf/wahl-o-chat/commit/e330ca4201ef91364158ab58e70b366895825988))
+
+
 ## v0.4.0 (2025-01-13)
 
 ### Bug Fixes
