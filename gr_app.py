@@ -130,7 +130,7 @@ async def chat(message, history, progress=gr.Progress()):
 gr.set_static_paths(paths=["files/"])
     
 history = [ gr.ChatMessage(role="assistant", 
-                           content="""Guten Tag, ich habe die *Wahlprogramme der Parteien* zur **Bundestagswahl** am **23. Februar 2025** gelesen und beantworte gerne Deine Fragen dazu!
+                           content="""Guten Tag, ich habe die **Wahlprogramme** der Parteien zur **Bundestagswahl** am **23. Februar 2025** gelesen und beantworte gerne Deine Fragen dazu!
                                       Meinen Quellcode findest Du übrigens auf [GitHub](https://github.com/fhswf/wahl-o-chat).
                                    """)
           ]
@@ -139,7 +139,7 @@ with gr.Blocks(fill_height=True) as demo:
         chatbot = gr.Chatbot(value=history, type="messages", min_height=400, height=None)
     with gr.Tab("Quellen"):
         references = gr.Markdown(""" """)
-    message = gr.Textbox(submit_btn=True, show_label=False)
+    message = gr.Textbox(submit_btn=True, show_label=False, placeholder="Gib hier Deine Frage ein")
     saved_message = gr.State()
     
     message.submit(lambda x: [ "", x ], message, [message, saved_message]).then(chat, [saved_message, chatbot], [chatbot, references])
