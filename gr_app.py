@@ -39,6 +39,7 @@ ICON_WARNING = ":material/warning:"
 ICON_INFO = ":material/info:"
 ICON_RESTART_ALT = ":material/restart_alt:"
 
+
 client = chromadb.PersistentClient(
     path=os.path.join(DATABASE_PATH, f"{EMBEDDING_MODEL}"))
 
@@ -136,7 +137,7 @@ history = [ gr.ChatMessage(role="assistant",
           ]
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Chat"):
-        chatbot = gr.Chatbot(value=history, type="messages", min_height=400, height=None)
+        chatbot = gr.Chatbot(value=history, type="messages", label="Wahl-o-Chat", min_height=400, height=None)
     with gr.Tab("Quellen"):
         references = gr.Markdown(""" """)
     message = gr.Textbox(submit_btn=True, show_label=False, placeholder="Gib hier Deine Frage ein")
@@ -146,4 +147,4 @@ with gr.Blocks(fill_height=True) as demo:
 
 print(_StaticFiles.all_paths)
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(pwa=True)
