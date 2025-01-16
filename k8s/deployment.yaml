@@ -16,7 +16,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: wahl-o-chat
-        image: ghcr.io/fhswf/wahl-o-chat:0.4.2
+        image: ghcr.io/fhswf/wahl-o-chat:0.5.0
         env:
         - name: OPENAI_API_KEY
           valueFrom:
