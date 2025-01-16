@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.5.1 (2025-01-16)
+
+### Bug Fixes
+
+- **ui**: Add title attribute
+  ([`2832862`](https://github.com/fhswf/wahl-o-chat/commit/283286228798c0647066ead15936d52c675656f3))
+
+
 ## v0.5.0 (2025-01-16)
 
 ### Bug Fixes
