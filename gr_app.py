@@ -39,6 +39,7 @@ ICON_WARNING = ":material/warning:"
 ICON_INFO = ":material/info:"
 ICON_RESTART_ALT = ":material/restart_alt:"
 
+
 client = chromadb.PersistentClient(
     path=os.path.join(DATABASE_PATH, f"{EMBEDDING_MODEL}"))
 
@@ -146,4 +147,4 @@ with gr.Blocks(fill_height=True) as demo:
 
 print(_StaticFiles.all_paths)
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(pwa=True)
