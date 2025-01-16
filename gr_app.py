@@ -135,7 +135,7 @@ history = [ gr.ChatMessage(role="assistant",
                                       Meinen Quellcode findest Du übrigens auf [GitHub](https://github.com/fhswf/wahl-o-chat).
                                    """)
           ]
-with gr.Blocks(fill_height=True) as demo:
+with gr.Blocks(title="Wahl-o-Chat", fill_height=True) as demo:
     with gr.Tab("Chat"):
         chatbot = gr.Chatbot(value=history, type="messages", label="Wahl-o-Chat", min_height=400, height=None)
     with gr.Tab("Quellen"):
