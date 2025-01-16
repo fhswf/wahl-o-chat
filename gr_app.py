@@ -136,7 +136,7 @@ history = [ gr.ChatMessage(role="assistant",
           ]
 with gr.Blocks(fill_height=True) as demo:
     with gr.Tab("Chat"):
-        chatbot = gr.Chatbot(value=history, type="messages", min_height=400, height=None)
+        chatbot = gr.Chatbot(value=history, type="messages", label="Wahl-o-Chat", min_height=400, height=None)
     with gr.Tab("Quellen"):
         references = gr.Markdown(""" """)
     message = gr.Textbox(submit_btn=True, show_label=False, placeholder="Gib hier Deine Frage ein")
