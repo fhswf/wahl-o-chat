@@ -1,5 +1,16 @@
 # CHANGELOG
 
+
+## v0.6.0 (2025-01-17)
+
+### Features
+
+- Party updates as of 2025-01-17
+  ([`2cf1ffa`](https://github.com/fhswf/wahl-o-chat/commit/2cf1ffa3f4099705e9ef8b683cd4db470f48f49a))
+
+- added "Die Linke" program - added "SPD Regierungsprogramm" - added "Volt" program
+
+
 ## v0.5.1 (2025-01-16)
 
 ### Bug Fixes
