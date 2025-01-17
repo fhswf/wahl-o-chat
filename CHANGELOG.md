@@ -1,6 +1,45 @@
 # CHANGELOG
 
 
+## v0.5.1 (2025-01-16)
+
+### Bug Fixes
+
+- **ui**: Add title attribute
+  ([`2832862`](https://github.com/fhswf/wahl-o-chat/commit/283286228798c0647066ead15936d52c675656f3))
+
+
+## v0.5.0 (2025-01-16)
+
+### Bug Fixes
+
+- **ui**: Add label in chatbot window
+  ([`8614021`](https://github.com/fhswf/wahl-o-chat/commit/86140217596194e7576ed114539d78d43fc949bf))
+
+- replace genric "Chatbot" label with "Wahl-o-Chat"
+
+### Features
+
+- Enable use as PWA
+  ([`82ee2c0`](https://github.com/fhswf/wahl-o-chat/commit/82ee2c006794798667e705de848f536a09d8368b))
+
+
+## v0.4.2 (2025-01-15)
+
+### Bug Fixes
+
+- **ui**: Add placeholder for text box
+  ([`799db4c`](https://github.com/fhswf/wahl-o-chat/commit/799db4c8fbdfb589a0cce07328a7d025c72fcd64))
+
+
+## v0.4.1 (2025-01-15)
+
+### Bug Fixes
+
+- **ui**: Add welcome message
+  ([`e330ca4`](https://github.com/fhswf/wahl-o-chat/commit/e330ca4201ef91364158ab58e70b366895825988))
+
+
 ## v0.4.0 (2025-01-13)
 
 ### Bug Fixes

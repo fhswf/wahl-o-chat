@@ -25,7 +25,7 @@ from Generator import Generator
 
 load_dotenv(find_dotenv())
 
-__version__ = "0.4.0"
+__version__ = "0.5.1"
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 DATABASE_PATH = "./chroma/"
@@ -38,6 +38,7 @@ ICON_ERROR = ":material/error:"
 ICON_WARNING = ":material/warning:"
 ICON_INFO = ":material/info:"
 ICON_RESTART_ALT = ":material/restart_alt:"
+
 
 client = chromadb.PersistentClient(
     path=os.path.join(DATABASE_PATH, f"{EMBEDDING_MODEL}"))
@@ -130,20 +131,20 @@ async def chat(message, history, progress=gr.Progress()):
 gr.set_static_paths(paths=["files/"])
     
 history = [ gr.ChatMessage(role="assistant", 
-                           content="""Guten Tag, ich habe die *Wahlprogramme der Parteien* zur **Bundestagswahl** am **23. Februar 2025** gelesen und beantworte gerne Deine Fragen dazu!
+                           content="""Guten Tag, ich habe die **Wahlprogramme** der Parteien zur **Bundestagswahl** am **23. Februar 2025** gelesen und beantworte gerne Deine Fragen dazu!
                                       Meinen Quellcode findest Du übrigens auf [GitHub](https://github.com/fhswf/wahl-o-chat).
                                    """)
           ]
-with gr.Blocks(fill_height=True) as demo:
+with gr.Blocks(title="Wahl-o-Chat", fill_height=True) as demo:
     with gr.Tab("Chat"):
-        chatbot = gr.Chatbot(value=history, type="messages", min_height=400, height=None)
+        chatbot = gr.Chatbot(value=history, type="messages", label="Wahl-o-Chat", min_height=400, height=None)
     with gr.Tab("Quellen"):
         references = gr.Markdown(""" """)
-    message = gr.Textbox(submit_btn=True, show_label=False)
+    message = gr.Textbox(submit_btn=True, show_label=False, placeholder="Gib hier Deine Frage ein")
     saved_message = gr.State()
     
     message.submit(lambda x: [ "", x ], message, [message, saved_message]).then(chat, [saved_message, chatbot], [chatbot, references])
 
 print(_StaticFiles.all_paths)
 if __name__ == "__main__":
-    demo.launch()
+    demo.launch(pwa=True)
