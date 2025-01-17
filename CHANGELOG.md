@@ -1,6 +1,5 @@
 # CHANGELOG
 
-
 ## v0.5.1 (2025-01-16)
 
 ### Bug Fixes
