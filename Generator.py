@@ -20,6 +20,7 @@ class ResponseFormatter(BaseModel):
 
 
 class ContextCleanup(Runnable[Dict[str, Any], Dict[str, Any]]):
+    # TODO: Sortiere Dokumente nach Relevanz
     def invoke(self, inputs, config, **kwargs):
         ranking = {x.id: x.score for x in inputs['ranking']}
         old_context = inputs['context']
