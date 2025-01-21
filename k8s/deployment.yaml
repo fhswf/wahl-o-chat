@@ -29,7 +29,7 @@ spec:
               name: openai-secret
               key: LANGCHAIN_API_KEY
         - name: LANGCHAIN_TRACING_V2
-          value: true
+          value: "true"
         - name: LANGCHAIN_PROJECT
           value: wahl-o-chat
         ports:
