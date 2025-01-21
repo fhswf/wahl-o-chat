@@ -23,11 +23,11 @@ spec:
             secretKeyRef:
               name: openai-secret
               key: OPENAI_API_KEY
-        - name: LANGSMITH_API_KEY
+        - name: LANGCHAIN_API_KEY
           valueFrom:
             secretKeyRef:
               name: openai-secret
-              key: LANGSMITH_API_KEY
+              key: LANGCHAIN_API_KEY
         - name: LANGCHAIN_TRACING_V2
           value: true
         - name: LANGCHAIN_PROJECT
