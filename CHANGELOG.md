@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.7.0 (2025-01-21)
+
+### Features
+
+- Enable langsmith tracing
+  ([`d86b458`](https://github.com/fhswf/wahl-o-chat/commit/d86b458b2645e7d130abac67a2ed7a3d23e45c26))
+
+
 ## v0.6.0 (2025-01-17)
 
 ### Features
