@@ -1,3 +1,3 @@
 # Wahl-o-Chat
 
-Beantworte Fragen zu den Wahlprogrammen der Parteien für die Bundestagswal 2025.
+Beantworte Fragen zu den Wahlprogrammen der Parteien für die Bundestagswahl 2025.
