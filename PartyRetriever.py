@@ -13,7 +13,7 @@ class PartyRetriever(BaseRetriever):
     A retriever that retrieves documents from the party programs"""
 
     docs: Mapping[str, str] = {
-        "BSW": "BSW_Wahlprogramm_2025__Entwurf_.pdf",
+        "BSW": "BSW_Wahlprogramm_2025.pdf",
         "Grüne": "Grüne_BTW2025.pdf",
         "CDU": "CDU_BTW2025.pdf",
         "AfD": "AfD_Leitantrag-Bundestagswahlprogramm-2025.pdf",
