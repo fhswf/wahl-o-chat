@@ -1,6 +1,17 @@
 # CHANGELOG
 
 
+## v0.10.1 (2025-01-23)
+
+### Bug Fixes
+
+- Update BSW program
+  ([`fcaa46b`](https://github.com/fhswf/wahl-o-chat/commit/fcaa46b8b75d2937802154cd1020606596e32360))
+
+- Update BSW program
+  ([`6f662a4`](https://github.com/fhswf/wahl-o-chat/commit/6f662a40a91ba6a090eb53bcd1c8c8edad467d67))
+
+
 ## v0.10.0 (2025-01-22)
 
 ### Features
