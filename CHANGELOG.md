@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.10.2 (2025-01-28)
+
+### Bug Fixes
+
+- Allow access via http
+  ([`e3a0fda`](https://github.com/fhswf/wahl-o-chat/commit/e3a0fdadd80e19fc42e7b57a8ba3465fb4517215))
+
+
 ## v0.10.1 (2025-01-23)
 
 ### Bug Fixes
