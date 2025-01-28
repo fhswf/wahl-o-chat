@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.10.4 (2025-01-28)
+
+### Bug Fixes
+
+- Add separate ingrss for http
+  ([`e5a7919`](https://github.com/fhswf/wahl-o-chat/commit/e5a7919d296a7ead43dc0693b4c992605da1211d))
+
+
 ## v0.10.3 (2025-01-28)
 
 ### Bug Fixes
