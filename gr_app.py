@@ -65,6 +65,14 @@ embedding = OpenAIEmbeddings(model=EMBEDDING_MODEL, api_key=OPENAI_API_KEY)
 
 generator = Generator(chroma, embedding, llm)
 
+CSS ="""
+.contain { display: flex; flex-direction: column; }
+.gradio-container { height: 100vh !important; }
+.tabs { flex-grow: 1 }
+#component-0 { height: 100%; }
+#chatbot { flex-grow: 1; overflow: auto;}
+"""
+
 examples = [
     "Was sagen die Parteien zum Thema KI?",
     "Wie sind die Positionen der Parteien in der Hochschulpolitik?",
@@ -150,17 +158,17 @@ async def chat(message, history, progress=gr.Progress()):
             yield history, formatContext(r["context"]), run_cb.traced_runs[0].id
 
 gr.set_static_paths(paths=["files/"])
-    
+
 history = [ gr.ChatMessage(role="assistant", 
                            content="""Guten Tag, ich habe die **Wahlprogramme** der Parteien zur **Bundestagswahl** am **23. Februar 2025** gelesen und beantworte gerne Deine Fragen dazu!
                                       Meinen Quellcode findest Du übrigens auf [GitHub](https://github.com/fhswf/wahl-o-chat).
                                    """)
           ]
-with gr.Blocks(title="Wahl-o-Chat", fill_height=True) as demo:
+with gr.Blocks(title="Wahl-o-Chat", fill_height=True, css=CSS) as demo:
     saved_message = gr.State()
     run_id = gr.State()
-    with gr.Tab("Chat"):
-        chatbot = gr.Chatbot(value=history, type="messages", label="Wahl-o-Chat", min_height=400, height=None)
+    with gr.Tab("Chat", scale=1):
+        chatbot = gr.Chatbot(value=history, type="messages", label="Wahl-o-Chat", min_height=400, height=None, elem_id="chatbot")
         chatbot.like(like, run_id, None)
     with gr.Tab("Quellen"):
         references = gr.Markdown(""" """)
@@ -169,5 +177,6 @@ with gr.Blocks(title="Wahl-o-Chat", fill_height=True) as demo:
     message.submit(lambda x: [ "", x ], message, [message, saved_message]).then(chat, [saved_message, chatbot], [chatbot, references, run_id])
 
 print(_StaticFiles.all_paths)
+
 if __name__ == "__main__":
     demo.launch(pwa=True)
