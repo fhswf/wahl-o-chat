@@ -1,6 +1,14 @@
 # CHANGELOG
 
 
+## v0.10.5 (2025-01-31)
+
+### Bug Fixes
+
+- **layout**: Fill available height
+  ([`7444732`](https://github.com/fhswf/wahl-o-chat/commit/7444732586f2253af2993420de5f1ff508f42969))
+
+
 ## v0.10.4 (2025-01-28)
 
 ### Bug Fixes
