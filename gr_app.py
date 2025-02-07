@@ -67,7 +67,6 @@ generator = Generator(chroma, embedding, llm)
 
 CSS ="""
 .contain { display: flex; flex-direction: column; }
-.gradio-container { height: 100vh !important; }
 .tabs { flex-grow: 1 }
 #component-0 { height: 100%; }
 #chatbot { flex-grow: 1; overflow: auto;}
