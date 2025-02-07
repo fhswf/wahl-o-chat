@@ -1,6 +1,16 @@
 # CHANGELOG
 
 
+## v0.10.6 (2025-02-07)
+
+### Bug Fixes
+
+- **ui**: Scrolling
+  ([`18b97bb`](https://github.com/fhswf/wahl-o-chat/commit/18b97bb2e0558631df9c981f03fd82854797ce44))
+
+- fix broken scrolling
+
+
 ## v0.10.5 (2025-01-31)
 
 ### Bug Fixes
